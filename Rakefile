@@ -19,8 +19,12 @@ end
 
 task :run do
   sh "time ./reversi/reversi_nim_release"
+  puts
   sh "time ./reversi/reversi_crystal_release"
+  puts
   sh "time node reversi/reversi.js"
+  puts
   sh "time ./reversi/reversi_crystal_dev"
+  puts
   sh "time ruby ./reversi/reversi.rb"
 end
