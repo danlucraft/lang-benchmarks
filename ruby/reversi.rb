@@ -1,8 +1,6 @@
 board = File.readlines("reversi/reversi.txt")
 board = board.map {|row| row.split("")}
 
-best_move = nil
-best_take_count = -1
 
 def count_taken_in_direction_from(board, i, j, di, dj)
   i += di
@@ -38,6 +36,9 @@ def take_count_at(board, i, j)
   count_taken_in_direction_from(board, i, j, 1, 0) + 
   count_taken_in_direction_from(board, i, j, 1, 1)
 end
+
+best_move = nil
+best_take_count = -1
 
 board.each_with_index do |row, i|
   row.each_with_index do |cell, j|

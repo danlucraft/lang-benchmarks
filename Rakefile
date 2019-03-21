@@ -1,30 +1,54 @@
 task :clean do
-  sh "rm -f reversi/reversi_crystal_release"
-  sh "rm -f reversi/reversi_crystal_dev"
-  sh "rm -f reversi/reversi_nim"
+  sh "rm -f crystal/release"
+  sh "rm -f nim/release"
+  sh "rm -fr nim/nimcache"
+  sh "rm -rf haxe/cpp_target"
+  sh "rm -f haxe/Main.hl"
+  sh "rm -f rust/release"
 end
 
 task :build do
-  # sh "crystal -v"
-  # sh "crystal build --release -o reversi/reversi_crystal_release reversi/reversi.cr"
-  # sh "crystal build -o reversi/reversi_crystal_dev reversi/reversi.cr"
-
+  puts "Versions:"
+  puts "-------------"
   sh "nim -v"
-  sh "nim compile -d:release reversi/reversi.nim"
-  sh "mv reversi/reversi reversi/reversi_nim_release"
-
+  puts "-------------"
   sh "ruby -v"
+  puts "-------------"
   sh "node -v"
+  puts "-------------"
+  sh "haxe --version"
+  puts "-------------"
+  sh "rustc --version"
+  puts "-------------"
+  sh "crystal -v"
+  puts "-------------"
+
+  sh "crystal build --release -o crystal/release crystal/reversi.cr"
+
+  sh "nim compile -d:release nim/reversi.nim"
+  sh "mv nim/reversi nim/release"
+
+  Dir.chdir("haxe" ) do
+    sh "haxe -main Main --cpp cpp_target"
+    sh "haxe -main Main --hl Main.hl"
+  end
+
+  sh "rustc rust/reversi.rs -o rust/release -C opt-level=3"
 end
 
 task :run do
-  sh "time ./reversi/reversi_nim_release"
+  sh "time ./nim/release"
   puts
-  #sh "time ./reversi/reversi_crystal_release"
-  #puts
-  sh "time node reversi/reversi.js"
+  sh "time ./crystal/release"
   puts
-  #sh "time ./reversi/reversi_crystal_dev"
-  #puts
-  sh "time ruby ./reversi/reversi.rb"
+  sh "time node node/reversi.js"
+  puts
+  sh "time ruby ./ruby/reversi.rb"
+
+  Dir.chdir("haxe" ) do
+    sh "time haxe -main Main --interp"
+    sh "time ./cpp_target/Main"
+    sh "time hl Main.hl"
+  end
+  sh "time ./rust/release"
 end

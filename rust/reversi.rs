@@ -3,7 +3,7 @@ use std::fs;
 type Board<'a> = Vec<Vec<&'a str>>;
 
 fn main() {
-    let board_string = fs::read_to_string("board.txt").expect("couldn't load board");
+    let board_string = fs::read_to_string("reversi/reversi.txt").expect("couldn't load board");
     let lines: Vec<&str> = board_string.split("\n").collect();
     let mut board: Vec<Vec<&str>> = vec![];
     for line in lines {
