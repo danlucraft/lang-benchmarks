@@ -16,9 +16,6 @@ for line in lines:
     j = j + 1
   i = i + 1
 
-var best_move = [-1, -1]
-var best_take_count = -1
-
 proc in_board(board: BoardArray, i: int, j: int): bool =
   let h = board.len
   let w = board[0].len
@@ -49,16 +46,19 @@ proc take_count_at(board: BoardArray, i: int, j: int): int =
     count_taken_in_direction_from(board, i, j, 1, 0) + 
     count_taken_in_direction_from(board, i, j, 1, 1)
 
-for i in countup(0, 7):
-  for j in countup(0, 7):
-    let cell = board[i][j]
-    if cell == '.':
-      var take_count = 0
-      for _ in countup(1, 100000):
-        take_count = take_count_at(board, i, j)
-      if take_count > best_take_count:
-        best_move = [i, j]
-        best_take_count = take_count
+var best_move = [-1, -1]
+var best_take_count = -1
+for _ in countup(1, 100000):
+  best_move = [-1, -1]
+  best_take_count = -1
+  for i in countup(0, 7):
+    for j in countup(0, 7):
+      let cell = board[i][j]
+      if cell == '.':
+        var take_count = take_count_at(board, i, j)
+        if take_count > best_take_count:
+          best_move = [i, j]
+          best_take_count = take_count
 
 echo best_move[0]
 echo best_move[1]

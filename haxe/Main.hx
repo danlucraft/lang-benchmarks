@@ -38,18 +38,19 @@ class Main {
 		var board = [for (line in content.split("\n")) line.split("")];
 		var best_move = [0, 0];
 		var best_take_count = -1;
-		for (i in 0...board.length) {
-			var row = board[i];
-			for (j in 0...row.length) {
-				var cell = row[j];
-				if (cell == ".") {
-					var take_count = 0;
-					for (x in 0...100000) {
-						take_count = take_count_at(board, i, j);
-					}
-					if (take_count > best_take_count) {
-						best_move = [i, j];
-						best_take_count = take_count;
+		for (x in 0...100000) {
+			best_move = [0, 0];
+			best_take_count = -1;
+			for (i in 0...board.length) {
+				var row = board[i];
+				for (j in 0...row.length) {
+					var cell = row[j];
+					if (cell == ".") {
+						var take_count = take_count_at(board, i, j);
+						if (take_count > best_take_count) {
+							best_move = [i, j];
+							best_take_count = take_count;
+						}
 					}
 				}
 			}

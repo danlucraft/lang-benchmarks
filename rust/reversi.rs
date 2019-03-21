@@ -16,7 +16,7 @@ fn main() {
         }
         board.push(row);
     }
-    let mut i = 999999;
+    let mut i = 99999;
     while i > 0 {
         best_move(&board);
         i = i - 1;

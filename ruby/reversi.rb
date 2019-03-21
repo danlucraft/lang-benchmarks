@@ -39,17 +39,18 @@ end
 
 best_move = nil
 best_take_count = -1
-
-board.each_with_index do |row, i|
-  row.each_with_index do |cell, j|
-    if cell == "."
-      take_count = 0
-      100000.times do
+100000.times do
+  best_move = nil
+  best_take_count = -1
+  
+  board.each_with_index do |row, i|
+    row.each_with_index do |cell, j|
+      if cell == "."
         take_count = take_count_at(board, i, j)
-      end
-      if take_count > best_take_count
-        best_move = [i, j]
-        best_take_count = take_count
+        if take_count > best_take_count
+          best_move = [i, j]
+          best_take_count = take_count
+        end
       end
     end
   end

@@ -49,10 +49,11 @@ task :run do
   puts
   sh "time ruby ./ruby/reversi.rb"
 
-  Dir.chdir("haxe" ) do
+  Dir.chdir("haxe") do
     sh "time haxe -main Main --interp"
     sh "time ./cpp_target/Main"
     sh "time hl Main.hl"
+    sh "time ./hl_native"
   end
   sh "time ./rust/release"
 end
