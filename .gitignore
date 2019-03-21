@@ -3,4 +3,6 @@ nim/release
 crystal/release*
 haxe/cpp_target
 haxe/Main.hl
+haxe/hl_native
+haxe/out
 rust/release

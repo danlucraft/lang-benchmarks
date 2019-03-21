@@ -3,6 +3,8 @@ task :clean do
   sh "rm -f nim/release"
   sh "rm -fr nim/nimcache"
   sh "rm -rf haxe/cpp_target"
+  sh "rm -rf haxe/out"
+  sh "rm -rf haxe/hl_native"
   sh "rm -f haxe/Main.hl"
   sh "rm -f rust/release"
 end
@@ -31,6 +33,8 @@ task :build do
   Dir.chdir("haxe" ) do
     sh "haxe -main Main --cpp cpp_target"
     sh "haxe -main Main --hl Main.hl"
+    sh "haxe -hl out/main.c -main Main"
+    sh "gcc -O3 -o hl_native -std=c11 -I out out/main.c -Lhl /usr/local/lib/libhl.dylib"
   end
 
   sh "rustc rust/reversi.rs -o rust/release -C opt-level=3"
