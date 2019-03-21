@@ -5,9 +5,9 @@ task :clean do
 end
 
 task :build do
-  sh "crystal -v"
-  sh "crystal build --release -o reversi/reversi_crystal_release reversi/reversi.cr"
-  sh "crystal build -o reversi/reversi_crystal_dev reversi/reversi.cr"
+  # sh "crystal -v"
+  # sh "crystal build --release -o reversi/reversi_crystal_release reversi/reversi.cr"
+  # sh "crystal build -o reversi/reversi_crystal_dev reversi/reversi.cr"
 
   sh "nim -v"
   sh "nim compile -d:release reversi/reversi.nim"
@@ -20,11 +20,11 @@ end
 task :run do
   sh "time ./reversi/reversi_nim_release"
   puts
-  sh "time ./reversi/reversi_crystal_release"
-  puts
+  #sh "time ./reversi/reversi_crystal_release"
+  #puts
   sh "time node reversi/reversi.js"
   puts
-  sh "time ./reversi/reversi_crystal_dev"
-  puts
+  #sh "time ./reversi/reversi_crystal_dev"
+  #puts
   sh "time ruby ./reversi/reversi.rb"
 end
